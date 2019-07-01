@@ -15,5 +15,5 @@ public class DataRecordTest {
 		dataRec=new DataRecord("A8001310008010311021050047302");
 		assertTrue(new String( "91 80\n").equals(dataRec.toString()));
 	}
-
+   
 }
