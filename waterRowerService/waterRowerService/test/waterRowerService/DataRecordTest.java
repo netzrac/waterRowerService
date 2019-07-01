@@ -12,6 +12,8 @@ public class DataRecordTest {
 		String toString=dataRec.toString();
 		String expectedString=new String("31 80\n");
 		assertTrue(expectedString.equals( toString));
+		dataRec=new DataRecord("A8001310008010311021050047302");
+		assertTrue(new String( "91 80\n").equals(dataRec.toString()));
 	}
 
 }

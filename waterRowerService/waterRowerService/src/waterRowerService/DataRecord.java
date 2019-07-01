@@ -129,7 +129,10 @@ public class DataRecord {
 	}
 	
 	public String toString() {
-		return StringFormatter.format( "%d %d\n", getTotalSeconds(), getTotalDistance()).getValue();
+		return StringFormatter.format( "%d %d\n", 
+				getTotalSeconds(), 
+				getTotalDistance())
+				.getValue();
 	}
 	
 }
