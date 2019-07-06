@@ -83,18 +83,6 @@ public class SerialDataConnector implements DataConnector {
 	}
 
 	@Override
-	public void initialize() throws DataConnectorException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void reset() throws DataConnectorException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void register(DataNotifier notifier) {
 		dataNotifiers.add(notifier);
 	}
