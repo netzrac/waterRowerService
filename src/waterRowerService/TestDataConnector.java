@@ -21,7 +21,12 @@ public class TestDataConnector implements DataConnector {
 	@Override
 	public void register(DataNotifier notifier) {
 		// TODO Auto-generated method stub
-		
+	}
+	
+		@Override
+		public void unregister(DataNotifier notifier) {
+			// TODO Auto-generated method stub
+			
 	}
 
 	@Override
