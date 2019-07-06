@@ -6,9 +6,9 @@ import gnu.io.CommPortIdentifier;
 
 public class SerialDataConnector implements DataConnector {
 
-	final private String device="/dev/USB01";
+	final private String device="/dev/ttyUSB0";
 	
-	public SerialDataConnector() {
+	public SerialDataConnector() throws DataConnectorException {
 		Enumeration<?> portIdentifiers = CommPortIdentifier.getPortIdentifiers();
 		 //
 		 // Check each port identifier if 
@@ -29,7 +29,7 @@ public class SerialDataConnector implements DataConnector {
 		 if(portId == null)
 		 {
 		     System.err.println("Could not find serial port " + device);
-		     System.exit(1);
+		     throw new DataConnectorException( "Failed to connect.");
 		 }
 	}
 

@@ -2,6 +2,10 @@ package waterRowerService;
 
 public class DataConnectorException extends Exception {
 
+	public DataConnectorException(String message) {
+		super( message);
+	}
+
 	/**
 	 * 
 	 */
