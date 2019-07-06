@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="lib/mfz-rxtx-2.2-20081207-win-x64/RXTXcomm.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
