@@ -1,6 +1,6 @@
 package waterRowerService;
 
-public interface SerialDataEvent {
+public interface DataEvent {
 	
 	public enum EventType { DATA};
 	
