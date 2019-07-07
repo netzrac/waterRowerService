@@ -1,43 +1,65 @@
 package waterRowerService;
 
+import waterRowerService.DataEvent.EventType;
+
 public class WaterRowerService {
 
-	public WaterRowerService() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	private static Object semaphore=new Object();
+	private SerialDataConnector sdc;
 
-	public static void main(String[] args) throws DataConnectorException {
-
+	public WaterRowerService() throws DataConnectorException {
+		
 		class SimpleDataNotifier implements DataNotifier {
 
+			private WaterRowerService waterRowerService;
+
+			public SimpleDataNotifier(WaterRowerService waterRowerService) {
+				this.waterRowerService=waterRowerService;
+			}
+
 			@Override
-			public void readEvent(DataEvent e) {
+			public void readEvent(DataEvent e) throws DataConnectorException {
 				System.out.println( e.getEventType()+": "+e.getRawData());
+				if( e.getEventType()==EventType.F_REPL) {
+					waterRowerService.reset();
+				}
 			}
 			
 		}
 
-		DataNotifier notifier=new SimpleDataNotifier();
+		DataNotifier notifier=new SimpleDataNotifier(this);
 
-		SerialDataConnector sdc=new SerialDataConnector();
-		int waitfor=200;
+		sdc=new SerialDataConnector();
 		sdc.register(notifier);
-		sdc.write( "C\n");
-		sleep(waitfor);
-		sdc.write( "T\n");
-		sleep(waitfor);
-		sdc.write( "V\n");
-		sleep(waitfor);
-		sdc.write( "L\n");
-		sleep(waitfor);
-		sdc.write( "H\n");
-		sleep(waitfor);
-		sdc.write( "R\n");
 		
-		sleep();
+		reset();
+		
+	}
+	
+	public void reset() throws DataConnectorException {
+		int waitfor=50;
+		
+		synchronized (sdc) {
+			sdc.write( "C\n");
+			sleep(waitfor);
+			sdc.write( "T\n");
+			sleep(waitfor);
+			sdc.write( "V\n");
+			sleep(waitfor);
+			sdc.write( "L\n");
+			sleep(waitfor);
+			sdc.write( "H\n");
+			sleep(waitfor);
+			sdc.write( "R\n");		
+		}
 
+	}
+
+	private static Object semaphore=new Object();
+
+	public static void main(String[] args) throws DataConnectorException {
+
+		new WaterRowerService();
+		sleep();
 	}
 
 	private static void sleep() {

@@ -125,10 +125,10 @@ public class SerialDataConnector implements DataConnector {
                 }
                 for( DataNotifier notifier:dataNotifiers) {
                     //System.out.print(new String(buffer,0,len));
-                	notifier.readEvent(new DataEvent(EventType.DATA, new String(buffer, 0, len)));
+                	notifier.readEvent(new DataEvent(new String(buffer, 0, len)));
                 }
             }
-            catch ( IOException e )
+            catch ( IOException | DataConnectorException e )
             {
                 e.printStackTrace();
                 System.exit(-1);
