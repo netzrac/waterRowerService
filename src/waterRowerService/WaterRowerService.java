@@ -1,5 +1,9 @@
 package waterRowerService;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import waterRowerService.DataEvent.EventType;
 
 public class WaterRowerService {
@@ -26,10 +30,7 @@ public class WaterRowerService {
 			
 		}
 
-		DataNotifier notifier=new SimpleDataNotifier(this);
-
 		sdc=new SerialDataConnector();
-		sdc.register(notifier);
 		
 		reset();
 		
@@ -53,16 +54,28 @@ public class WaterRowerService {
 		}
 
 	}
+	
+	public void registerNotifier(DataNotifier notifier) {
+		sdc.register(notifier);
+	}
+	
+	public void unregisterNotifier( DataNotifier notifier) {
+		sdc.unregister(notifier);
+	}
 
 	private static Object semaphore=new Object();
 
-	public static void main(String[] args) throws DataConnectorException {
-
-		new WaterRowerService();
+	public static void main(String[] args) throws DataConnectorException, IOException {
+		WaterRowerService wrs=new WaterRowerService();
 		sleep();
+		ServerSocket ss=new ServerSocket(1963);
+		while( true) {
+			Socket s=ss.accept();
+			Client cl=new Client( wrs, s);
+		}
 	}
 
-	private static void sleep() {
+	static void sleep() {
 		sleep(0);
 	}
 	
