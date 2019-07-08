@@ -67,11 +67,12 @@ public class WaterRowerService {
 
 	public static void main(String[] args) throws DataConnectorException, IOException {
 		WaterRowerService wrs=new WaterRowerService();
-		sleep();
+//		sleep();
 		ServerSocket ss=new ServerSocket(1963);
 		while( true) {
 			Socket s=ss.accept();
 			Client cl=new Client( wrs, s);
+			cl.run();
 		}
 	}
 
