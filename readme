@@ -95,7 +95,7 @@ WARNING:  RXTX Version mismatch
         native lib Version = RXTX-2.2pre2
 RXTX Warning:  Removing stale lock file. /var/lock/LCK..ttyUSB0
 /dev/ttyUSB0: 1
-
+   
 DATA: C1154
 DATA: T8
 DATA: V1150715
