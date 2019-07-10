@@ -8,27 +8,29 @@ import waterRowerService.DataEvent.EventType;
 
 public class WaterRowerService {
 
+	private static boolean executeService=true;
 	private SerialDataConnector sdc;
+	private long waitfor=50;
 
 	public WaterRowerService() throws DataConnectorException {
 		
-		class SimpleDataNotifier implements DataNotifier {
-
-			private WaterRowerService waterRowerService;
-
-			public SimpleDataNotifier(WaterRowerService waterRowerService) {
-				this.waterRowerService=waterRowerService;
-			}
-
-			@Override
-			public void readEvent(DataEvent e) throws DataConnectorException {
-				System.out.println( e.getEventType()+": "+e.getRawData());
-				if( e.getEventType()==EventType.F_REPL) {
-					waterRowerService.reset();
-				}
-			}
-			
-		}
+//		class SimpleDataNotifier implements DataNotifier {
+//
+//			private WaterRowerService waterRowerService;
+//
+//			public SimpleDataNotifier(WaterRowerService waterRowerService) {
+//				this.waterRowerService=waterRowerService;
+//			}
+//
+//			@Override
+//			public void readEvent(DataEvent e) throws DataConnectorException {
+//				System.out.println( e.getEventType()+": "+e.getRawData());
+//				if( e.getEventType()==EventType.F_REPL) {
+//					waterRowerService.reset();
+//				}
+//			}
+//			
+//		}
 
 		sdc=new SerialDataConnector();
 		
@@ -37,21 +39,25 @@ public class WaterRowerService {
 	}
 	
 	public void reset() throws DataConnectorException {
-		int waitfor=50;
-		
-		synchronized (sdc) {
-			sdc.write( "C\n");
-			sleep(waitfor);
-			sdc.write( "T\n");
-			sleep(waitfor);
-			sdc.write( "V\n");
-			sleep(waitfor);
-			sdc.write( "L\n");
-			sleep(waitfor);
-			sdc.write( "H\n");
-			sleep(waitfor);
-			sdc.write( "R\n");		
-		}
+
+			try {
+				synchronized (sdc) {
+					sdc.write( "C\n");
+					Thread.sleep(waitfor);
+					sdc.write( "T\n");
+					Thread.sleep(waitfor);
+					sdc.write( "V\n");
+					Thread.sleep(waitfor);
+					sdc.write( "L\n");
+					Thread.sleep(waitfor);
+					sdc.write( "H\n");
+					Thread.sleep(waitfor);
+					sdc.write( "R\n");					
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
 
 	}
 	
@@ -63,35 +69,16 @@ public class WaterRowerService {
 		sdc.unregister(notifier);
 	}
 
-	private static Object semaphore=new Object();
-
 	public static void main(String[] args) throws DataConnectorException, IOException {
 		WaterRowerService wrs=new WaterRowerService();
-//		sleep();
 		ServerSocket ss=new ServerSocket(1963);
-		while( true) {
+		while( executeService) {
 			Socket s=ss.accept();
 			Client cl=new Client( wrs, s);
 			cl.run();
 		}
+		ss.close();
 	}
 
-	static void sleep() {
-		sleep(0);
-	}
-	
-	private static void sleep(int i) {
-		try {
-			synchronized (semaphore) {
-				if( i==0) {
-					semaphore.wait();
-				} else {
-					semaphore.wait(i);
-				}
-			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
 
 }
