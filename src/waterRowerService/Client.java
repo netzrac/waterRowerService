@@ -34,6 +34,7 @@ public class Client implements DataNotifier, Runnable {
 		}
 		
 		wrs.unregisterNotifier(this);
+		
 		try {
 			is.close();
 			os.close();
