@@ -11,28 +11,16 @@ public class WaterRowerService {
 	private static boolean executeService=true;
 	private SerialDataConnector sdc;
 	private long waitfor=50;
+	private DataNotifier serviceNotifier;
 
 	public WaterRowerService() throws DataConnectorException {
-		
-//		class SimpleDataNotifier implements DataNotifier {
-//
-//			private WaterRowerService waterRowerService;
-//
-//			public SimpleDataNotifier(WaterRowerService waterRowerService) {
-//				this.waterRowerService=waterRowerService;
-//			}
-//
-//			@Override
-//			public void readEvent(DataEvent e) throws DataConnectorException {
-//				System.out.println( e.getEventType()+": "+e.getRawData());
-//				if( e.getEventType()==EventType.F_REPL) {
-//					waterRowerService.reset();
-//				}
-//			}
-//			
-//		}
 
+		System.out.println(this.getClass().getName());
 		sdc=new SerialDataConnector();
+		
+		this.serviceNotifier=new ServiceDataNotifier(this);
+		
+		registerNotifier(serviceNotifier);
 		
 		reset();
 		
@@ -40,6 +28,7 @@ public class WaterRowerService {
 	
 	public void reset() throws DataConnectorException {
 
+		System.out.println(this.getClass().getName()+"::reset()");
 			try {
 				synchronized (sdc) {
 					sdc.write( "C\n");
@@ -62,12 +51,16 @@ public class WaterRowerService {
 	}
 	
 	public void registerNotifier(DataNotifier notifier) {
+		System.out.println(this.getClass().getName()+"::registerNotifier()");
 		sdc.register(notifier);
 	}
 	
 	public void unregisterNotifier( DataNotifier notifier) {
+		System.out.println(this.getClass().getName()+"::unregisterNotifier()");
 		sdc.unregister(notifier);
 	}
+	
+	
 
 	public static void main(String[] args) throws DataConnectorException, IOException {
 		WaterRowerService wrs=new WaterRowerService();
@@ -77,7 +70,13 @@ public class WaterRowerService {
 			Client cl=new Client( wrs, s);
 			cl.run();
 		}
+		wrs.close();
 		ss.close();
+	}
+
+	private void close() {
+		unregisterNotifier( serviceNotifier);
+		
 	}
 
 
