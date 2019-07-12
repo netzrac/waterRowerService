@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import waterRowerService.DataEvent.EventType;
-
 public class WaterRowerService {
 
 	private static boolean executeService=true;
@@ -74,6 +72,7 @@ public class WaterRowerService {
 		ss.close();
 	}
 
+	
 	private void close() {
 		unregisterNotifier( serviceNotifier);
 		
