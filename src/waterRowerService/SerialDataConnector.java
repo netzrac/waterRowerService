@@ -123,9 +123,10 @@ public class SerialDataConnector implements DataConnector {
                     }
                     buffer[len++] = (byte) data;
                 }
+                DataEvent dataEvent = new DataEvent(new String(buffer, 0, len));
                 for( DataNotifier notifier:dataNotifiers) {
                     //System.out.print(new String(buffer,0,len));
-                	notifier.readEvent(new DataEvent(new String(buffer, 0, len)));
+                	notifier.readEvent(dataEvent);
                 }
             }
             catch ( IOException | DataConnectorException e )

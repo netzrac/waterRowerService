@@ -15,15 +15,15 @@ public class Client implements DataNotifier, Runnable {
 
 	public Client( WaterRowerService wrs, Socket s) throws IOException {
 		this.wrs=wrs;
+		wrs.registerNotifier(this);
 		this.s=s;
         in = new Scanner(s.getInputStream());
         out = new PrintWriter(s.getOutputStream(), true);
+        out.println("HELO");
 	}
 	
 	@Override
 	public void run() {
-		
-		wrs.registerNotifier(this);
 
 		boolean listen=true;
 		while( listen && s.isConnected()) {
@@ -58,7 +58,8 @@ public class Client implements DataNotifier, Runnable {
 	public void readEvent(DataEvent e) throws DataConnectorException {
 		// Send data to client
 		if( e.getEventType().equals(DataEvent.EventType.DATA)) {
-			out.print(e.getRawData());
+			out.println(e.getRawData());
+			out.flush();
 		}
 	}
 
