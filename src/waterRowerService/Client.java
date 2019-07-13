@@ -1,13 +1,9 @@
 package waterRowerService;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
-
-import sun.security.action.GetLongAction;
 
 public class Client implements DataNotifier, Runnable {
 	
@@ -23,8 +19,6 @@ public class Client implements DataNotifier, Runnable {
         in = new Scanner(s.getInputStream());
         out = new PrintWriter(s.getOutputStream(), true);
 	}
-
-	private static Object semaphore=new Object();
 	
 	@Override
 	public void run() {
