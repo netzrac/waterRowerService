@@ -3,6 +3,8 @@ package waterRowerService;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class WaterRowerService {
 
@@ -61,16 +63,32 @@ public class WaterRowerService {
 	
 
 	public static void main(String[] args) throws DataConnectorException, IOException {
+
 		WaterRowerService wrs=new WaterRowerService();
-		ServerSocket ss=new ServerSocket(1963);
-		while( executeService) {
-			Socket s=ss.accept();
-			Client cl=new Client( wrs, s);
-			cl.run();
-		}
+
+//		ServerSocket ss=new ServerSocket(1963);
+//		while( executeService) {
+//			Socket s=ss.accept();
+//			Client cl=new Client( wrs, s);
+//			cl.run();
+//		}
+		
+		ServerSocket listener = new ServerSocket(1963);
+		try {
+            System.out.println("The capitalization server is running...");
+            ExecutorService pool = Executors.newFixedThreadPool(9);
+            while (true) {
+                pool.execute(new Client(wrs, listener.accept()));
+            }
+        } catch( IOException e) {
+        	System.err.println( "Error while listening: "+e.getLocalizedMessage());
+        }
+		
 		wrs.close();
-		ss.close();
+		listener.close();
+		
 	}
+	
 
 	
 	private void close() {
