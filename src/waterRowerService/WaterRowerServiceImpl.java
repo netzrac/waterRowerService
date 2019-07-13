@@ -8,7 +8,6 @@ import java.util.concurrent.Executors;
 
 public class WaterRowerServiceImpl implements WaterRowerService {
 
-	private static boolean executeService=true;
 	private SerialDataConnector sdc;
 	private long waitfor=50;
 	private DataNotifier serviceNotifier;
