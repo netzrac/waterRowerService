@@ -6,22 +6,21 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class WaterRowerServiceSimulator implements WaterRowerService {
+public class WaterRowerServiceImpl implements WaterRowerService {
 
-	private SimulatorDataConnector sdc;
+	private static boolean executeService=true;
+	private SerialDataConnector sdc;
+	private long waitfor=50;
 	private DataNotifier serviceNotifier;
-	private Thread thread;
 
-	public WaterRowerServiceSimulator() throws DataConnectorException {
+	public WaterRowerServiceImpl() throws DataConnectorException {
 
 		System.out.println(this.getClass().getName());
-		sdc=new SimulatorDataConnector();
-		thread=new Thread(sdc);
-		thread.start();
+		sdc=new SerialDataConnector();
+		
 		this.serviceNotifier=new ServiceDataNotifier(this);
 		
 		registerNotifier(serviceNotifier);
-
 		
 		reset();
 		
@@ -30,10 +29,27 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 	public void reset() throws DataConnectorException {
 
 		System.out.println(this.getClass().getName()+"::reset()");
+			try {
+				synchronized (sdc) {
+					sdc.write( "C\n");
+					Thread.sleep(waitfor);
+					sdc.write( "T\n");
+					Thread.sleep(waitfor);
+					sdc.write( "V\n");
+					Thread.sleep(waitfor);
+					sdc.write( "L\n");
+					Thread.sleep(waitfor);
+					sdc.write( "H\n");
+					Thread.sleep(waitfor);
+					sdc.write( "R\n");					
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
 
 	}
 	
-	@Override
 	public void registerNotifier(DataNotifier notifier) {
 		System.out.println(this.getClass().getName()+"::registerNotifier()");
 		sdc.register(notifier);
@@ -48,11 +64,18 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 
 	public static void main(String[] args) throws DataConnectorException, IOException {
 
-		WaterRowerServiceSimulator wrs=new WaterRowerServiceSimulator();
+		WaterRowerServiceImpl wrs=new WaterRowerServiceImpl();
+
+//		ServerSocket ss=new ServerSocket(1963);
+//		while( executeService) {
+//			Socket s=ss.accept();
+//			Client cl=new Client( wrs, s);
+//			cl.run();
+//		}
 		
 		ServerSocket listener = new ServerSocket(1963);
 		try {
-            System.out.println("The water rower simulation server is running...");
+            System.out.println("The water rower server is running...");
             ExecutorService pool = Executors.newFixedThreadPool(9);
             while (true) {
                 pool.execute(new Client(wrs, listener.accept()));
@@ -72,6 +95,4 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 		unregisterNotifier( serviceNotifier);
 		
 	}
-
-
 }
