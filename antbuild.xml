@@ -31,7 +31,7 @@
         </jar>
     </target>
     <target name="create_sim_run_jar">
-        <jar destfile="${dir.jarfile}/wrs.jar" filesetmanifest="mergewithoutmain">
+        <jar destfile="${dir.jarfile}/wrssim.jar" filesetmanifest="mergewithoutmain">
             <manifest>
                 <attribute name="Main-Class" value="waterRowerService.WaterRowerServiceSimulator"/>
                 <attribute name="Class-Path" value="."/>
