@@ -50,7 +50,7 @@ public class SimulatorDataConnector implements DataConnector, Runnable {
 				if( dist>9999) dist=0;
 				rawData = "A80"
 				+ String.format("%02d%02d%04d", min, sec, dist)
-				+"110314021048046502\n";
+				+"110314021048046502";
 				DataEvent e=new DataEvent(rawData);
 				for( DataNotifier dn:dnMap) {
 					dn.readEvent(e);

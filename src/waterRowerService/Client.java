@@ -26,21 +26,27 @@ public class Client implements DataNotifier, Runnable {
 	public void run() {
 
 		boolean listen=true;
-		while( listen && s.isConnected()) {
-		    while (in.hasNextLine()) {
-		    	String cmd=in.nextLine();
-		        System.out.println("RCVD: "+cmd);
-		        if( "X".equals(cmd)) {
-			        System.out.println("Stop receiving input from client.");
-		        	listen=false;
-		        }
-		    }
-		    try {
-				Thread.sleep(waitTime);
-			} catch (InterruptedException e) {
-			}
-		}
+	    while (in.hasNextLine()) {
+	    	String cmd=in.nextLine();
+	        if( "X".equals(cmd)) {
+		        System.out.println("Stop receiving input from client.");
+	        	//listen=false;
+		        break;
+	        } else if( "H".equals(cmd)) {
+		        System.out.println("HELO received.");
+	        } else if( "R".equals(cmd)) {
+		        System.out.println("Resetting water rower on demand.");
+	        	try {
+					wrs.reset();
+				} catch (DataConnectorException e) {
+					System.err.println("Exception caught resetting water rower: "+e.getLocalizedMessage());
+					//listen=false;
+					break;
+				}
+	        }
+	    }
 		
+		System.out.println("Unregister client notifier."); 
 		wrs.unregisterNotifier(this);
 		
 		// Flush streams
