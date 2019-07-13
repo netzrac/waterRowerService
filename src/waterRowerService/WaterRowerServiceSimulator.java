@@ -29,6 +29,7 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 	public void reset() throws DataConnectorException {
 
 		System.out.println(this.getClass().getName()+"::reset()");
+		this.sdc.write("R");
 
 	}
 	
