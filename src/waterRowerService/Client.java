@@ -32,9 +32,14 @@ public class Client implements DataNotifier, Runnable {
 		wrs.registerNotifier(this);
 
 		boolean listen=true;
-		while( listen) {
+		while( listen && s.isConnected()) {
 		    while (in.hasNextLine()) {
-		        System.out.println(in.nextLine().toUpperCase());
+		    	String cmd=in.nextLine();
+		        System.out.println("RCVD: "+cmd);
+		        if( "X".equals(cmd)) {
+			        System.out.println("Stop receiving input from client.");
+		        	listen=false;
+		        }
 		    }
 		    try {
 				Thread.sleep(waitTime);
@@ -47,6 +52,12 @@ public class Client implements DataNotifier, Runnable {
 		// Flush streams
 		in.close();
 		out.close();
+		
+    	try {
+			s.close();
+		} catch (IOException e) {
+	        System.out.println("Exception caught closing socket: "+e.getLocalizedMessage());
+		}
 	}
 
 	@Override
