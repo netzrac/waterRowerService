@@ -1,9 +1,6 @@
 package waterRowerService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import com.sun.javafx.binding.StringFormatter;
 
 public class SimulatorDataConnector implements DataConnector, Runnable {
 

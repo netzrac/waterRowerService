@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.TooManyListenersException;
 
 import gnu.io.CommPortIdentifier;
@@ -13,7 +12,6 @@ import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
-import waterRowerService.DataEvent.EventType;
 
 public class SerialDataConnector implements DataConnector {
 
