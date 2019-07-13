@@ -30,4 +30,28 @@
             <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/mfz-rxtx-2.2-20081207-win-x64/RXTXcomm.jar"/>
         </jar>
     </target>
+    <target name="create_sim_run_jar">
+        <jar destfile="${dir.jarfile}/wrs.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="waterRowerService.WaterRowerServiceSimulator"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${dir.buildfile}/bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.junit.jupiter.api_5.3.1.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.junit.jupiter.engine_5.3.1.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.junit.jupiter.migrationsupport_5.3.1.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.junit.jupiter.params_5.3.1.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.junit.platform.commons_1.3.1.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.junit.platform.engine_1.3.1.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.junit.platform.launcher_1.3.1.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.junit.platform.runner_1.3.1.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.junit.platform.suite.api_1.3.1.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.junit.vintage.engine_5.3.1.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.opentest4j_1.1.1.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.apiguardian_1.0.0.v20181005-1442.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Program Files/Eclipse 4.10/eclipse/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/mfz-rxtx-2.2-20081207-win-x64/RXTXcomm.jar"/>
+        </jar>
+    </target>
 </project>
