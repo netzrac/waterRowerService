@@ -11,7 +11,6 @@ public class Client implements DataNotifier, Runnable {
 	private Socket s;
 	private Scanner in;
 	private PrintWriter out;
-	private long waitTime=100; // wait ms before checking for new command
 
 	public Client( WaterRowerService wrs, Socket s) throws IOException {
 		this.wrs=wrs;
@@ -25,7 +24,6 @@ public class Client implements DataNotifier, Runnable {
 	@Override
 	public void run() {
 
-		boolean listen=true;
 	    while (in.hasNextLine()) {
 	    	String cmd=in.nextLine();
 	        if( "X".equals(cmd)) {
