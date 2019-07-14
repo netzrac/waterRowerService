@@ -57,20 +57,11 @@ public class WaterRowerServiceImpl implements WaterRowerService {
 		System.out.println(this.getClass().getName()+"::unregisterNotifier()");
 		sdc.unregister(notifier);
 	}
-	
-	
 
 	public static void main(String[] args) throws DataConnectorException, IOException {
 
 		WaterRowerServiceImpl wrs=new WaterRowerServiceImpl();
-
-//		ServerSocket ss=new ServerSocket(1963);
-//		while( executeService) {
-//			Socket s=ss.accept();
-//			Client cl=new Client( wrs, s);
-//			cl.run();
-//		}
-		
+	
 		ServerSocket listener = new ServerSocket(1963);
 		try {
             System.out.println("The water rower server is running...");
@@ -87,10 +78,7 @@ public class WaterRowerServiceImpl implements WaterRowerService {
 		
 	}
 	
-
-	
 	private void close() {
 		unregisterNotifier( serviceNotifier);
-		
 	}
 }

@@ -14,16 +14,19 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 	public WaterRowerServiceSimulator() throws DataConnectorException {
 
 		System.out.println(this.getClass().getName());
-		sdc=new SimulatorDataConnector();
+		String replayFile=SimulatorConfig.getStringOptionValue("file");
+		if( replayFile==null ) {
+			sdc=new StandardSimulatorDataConnector();
+		} else {
+			sdc=new ReplayDataConnector(replayFile);
+		}
 		thread=new Thread(sdc);
 		thread.start();
 		this.serviceNotifier=new ServiceDataNotifier(this);
 		
 		registerNotifier(serviceNotifier);
-
 		
 		reset();
-		
 	}
 	
 	public void reset() throws DataConnectorException {
@@ -48,6 +51,8 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 
 	public static void main(String[] args) throws DataConnectorException, IOException {
 
+		SimulatorConfig.setConfigOptions(args);
+		
 		WaterRowerServiceSimulator wrs=new WaterRowerServiceSimulator();
 		
 		ServerSocket listener = new ServerSocket(1963);
@@ -66,12 +71,8 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 		
 	}
 	
-
-	
 	private void close() {
 		unregisterNotifier( serviceNotifier);
-		
 	}
-
 
 }
