@@ -1,26 +1,27 @@
 package waterRowerService;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ReplayDataConnector extends SimulatorDataConnector {
 
 	private ArrayList<DataNotifier> dnMap=new ArrayList<DataNotifier>();
-	private int min=0;
-	private int sec=0;
-	private int dist=0;
 	private String replayFile;
-	private boolean restart=false;
 	
 	public ReplayDataConnector(String replayFile) {
 		this.replayFile=replayFile;
+		if( !new File( this.replayFile).exists()) {
+			System.err.println("Replay file does not exist. Exiting apllication.");
+			System.exit(-1);
+		} else {
+			System.out.println("Replaying file: "+replayFile);
+		}
 	}
 	
 
 	@Override
 	public void write(String data) throws DataConnectorException {
-		if( "R".contentEquals(data)) {
-			restart=true;
-		}
+		System.out.println("'"+data+"' received to send to device. Will be ignored.");
 	}
 
 	@Override
