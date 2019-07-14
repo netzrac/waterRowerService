@@ -20,11 +20,12 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 		} else {
 			sdc=new ReplayDataConnector(replayFile);
 		}
+
+		this.serviceNotifier=new ServiceDataNotifier(this);
+		registerNotifier(serviceNotifier);
+
 		thread=new Thread(sdc);
 		thread.start();
-		this.serviceNotifier=new ServiceDataNotifier(this);
-		
-		registerNotifier(serviceNotifier);
 		
 		reset();
 	}
