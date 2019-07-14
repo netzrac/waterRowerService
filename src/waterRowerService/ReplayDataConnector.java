@@ -11,7 +11,7 @@ public class ReplayDataConnector extends SimulatorDataConnector {
 	public ReplayDataConnector(String replayFile) {
 		this.replayFile=replayFile;
 		if( !new File( this.replayFile).exists()) {
-			System.err.println("Replay file does not exist. Exiting apllication.");
+			System.err.println("Replay file does not exist. Exiting application.");
 			System.exit(-1);
 		} else {
 			System.out.println("Replaying file: "+replayFile);
