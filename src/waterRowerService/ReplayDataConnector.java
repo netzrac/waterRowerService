@@ -9,9 +9,11 @@ public class ReplayDataConnector extends SimulatorDataConnector {
 
 	private ArrayList<DataNotifier> dnMap=new ArrayList<DataNotifier>();
 	private String replayFile;
+	private int factor;
 	
 	public ReplayDataConnector(String replayFile) {
 		this.replayFile=replayFile;
+		this.factor=SimulatorConfig.getIntOptionValue("timefactor", 1000);
 		if( !new File( this.replayFile).exists()) {
 			System.err.println("Replay file does not exist. Exiting application.");
 			System.exit(-1);
@@ -60,7 +62,7 @@ public class ReplayDataConnector extends SimulatorDataConnector {
 				try {
 					// wait n secs
 					if( nextData!=null&&currData!=null) {
-						Thread.sleep((nextDataRecord.getTotalSeconds()-currDataRecord.getTotalSeconds())*1000);
+						Thread.sleep((nextDataRecord.getTotalSeconds()-currDataRecord.getTotalSeconds())*factor);
 					}
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();

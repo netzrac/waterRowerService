@@ -22,6 +22,10 @@ public class SimulatorConfig {
         Option path = new Option("f", "file", true, "file to replay");
         path.setRequired(false);
         options.addOption(path);
+        
+        Option factor = new Option("t", "timefactor", true, "time factor in ms");
+        factor.setRequired(false);
+        options.addOption(factor);        
 
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
@@ -43,6 +47,13 @@ public class SimulatorConfig {
 
 	public static int getIntOptionValue(String option) {
         return Integer.parseInt(cmd.getOptionValue(option, "-1"));
+	}
+
+	public static int getIntOptionValue(String option, int defaultVal) {
+		if( cmd.hasOption(option)) {
+			return Integer.parseInt(cmd.getOptionValue( option));
+		}
+		return defaultVal;
 	}
 	
 	
