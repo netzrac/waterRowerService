@@ -35,7 +35,6 @@ public class SimulatorConfig {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
             formatter.printHelp("utility-name", options);
-
             System.exit(1);
         }
 	}

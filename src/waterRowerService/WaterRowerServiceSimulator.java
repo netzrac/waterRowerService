@@ -10,6 +10,7 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 	private SimulatorDataConnector sdc;
 	private DataNotifier serviceNotifier;
 	private Thread thread;
+	private String heartrate;
 
 	public WaterRowerServiceSimulator() throws DataConnectorException {
 
@@ -74,6 +75,17 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 	
 	private void close() {
 		unregisterNotifier( serviceNotifier);
+	}
+	
+	@Override
+	public synchronized void setHeartrate(String heartrate) {
+		this.heartrate=heartrate;
+		
+	}
+
+	@Override
+	public synchronized String getHeartrate() {
+		return heartrate;
 	}
 
 }

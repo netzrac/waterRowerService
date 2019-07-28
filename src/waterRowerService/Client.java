@@ -32,6 +32,9 @@ public class Client implements DataNotifier, Runnable {
 		        break;
 	        } else if( "H".equals(cmd)) {
 		        System.out.println("HELO received.");
+	        } else if( 'Z'==cmd.charAt(0)) {
+		        System.out.println("Heartrate: "+cmd.substring(2));
+		        wrs.setHeartrate( cmd.substring(2));
 	        } else if( "R".equals(cmd)) {
 		        System.out.println("Resetting water rower on demand.");
 	        	try {
@@ -60,9 +63,9 @@ public class Client implements DataNotifier, Runnable {
 
 	@Override
 	public void readEvent(DataEvent e) throws DataConnectorException {
-		// Send data to client
+		// Send data to client  
 		if( e.getEventType().equals(DataEvent.EventType.DATA)) {
-			out.println(e.getRawData());
+			out.println(e.getRawData()+wrs.getHeartrate());
 			out.flush();
 		}
 	}
