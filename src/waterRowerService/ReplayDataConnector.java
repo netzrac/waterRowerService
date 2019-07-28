@@ -49,6 +49,9 @@ public class ReplayDataConnector extends SimulatorDataConnector {
 			if( scanner.hasNextLine()) {
 				nextData=getNextDataLine(scanner);
 				if( nextData!=null) {
+					if(nextData.length()>29) {
+						nextData=nextData.substring(0, 29);
+					}
 					nextDataRecord=new DataRecord(nextData);
 				}
 			}
@@ -71,6 +74,9 @@ public class ReplayDataConnector extends SimulatorDataConnector {
 				currData=nextData;
 				if( scanner.hasNextLine()) {
 					nextData=getNextDataLine(scanner);
+					if(nextData.length()>29) {
+						nextData=nextData.substring(0, 29);
+					}
 					if( nextData!=null) {
 						nextDataRecord=new DataRecord(nextData);
 					} else {

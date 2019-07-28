@@ -12,7 +12,7 @@ public class ServiceDataNotifier implements DataNotifier {
 
 	@Override
 	public void readEvent(DataEvent e) throws DataConnectorException {
-		System.out.println( e.getEventType()+": "+e.getRawData());
+		System.out.println( e.getEventType()+": "+e.getRawData()+waterRowerService.getHeartrate());
 		if( e.getEventType()==EventType.F_REPL) {
 			waterRowerService.reset();
 		}

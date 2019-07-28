@@ -10,7 +10,7 @@ public class WaterRowerServiceImpl implements WaterRowerService {
 	private SerialDataConnector sdc;
 	private long waitfor=50;
 	private DataNotifier serviceNotifier;
-	private String heartrate;
+	private String heartrate="000";
 
 	public WaterRowerServiceImpl() throws DataConnectorException {
 
