@@ -2,6 +2,8 @@ package waterRowerService;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -10,7 +12,7 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 	private SimulatorDataConnector sdc;
 	private DataNotifier serviceNotifier;
 	private Thread thread;
-	private String heartrate="000";
+	private List<HeartrateNotifier> heartrateNotifiers=new ArrayList<HeartrateNotifier>();
 
 	public WaterRowerServiceSimulator() throws DataConnectorException {
 
@@ -76,6 +78,20 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 	private void close() {
 		unregisterNotifier( serviceNotifier);
 	}
+
+	@Override
+	public void registerHeartrateNotifier( HeartrateNotifier heartrateNotifier) {
+		heartrateNotifiers.add(heartrateNotifier);
+	}
+
+	public void unregisterHeartrateNotifier( HeartrateNotifier heartrateNotifier) {
+		heartrateNotifiers.remove(heartrateNotifier);
+	}
 	
+	public void setHeartrate(String heartrateString) {
+		for( HeartrateNotifier hn:heartrateNotifiers) {
+			hn.heartrateEvent( Integer.parseInt( heartrateString));
+		}
+	}
 
 }

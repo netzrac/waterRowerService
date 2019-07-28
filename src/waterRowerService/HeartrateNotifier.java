@@ -1,5 +1,5 @@
 package waterRowerService;
 
 public interface HeartrateNotifier {
-	public void readHeartrate( int heartRate);
+	public void heartrateEvent( int heartRate);
 }

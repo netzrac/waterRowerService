@@ -3,8 +3,6 @@ package waterRowerService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Client implements DataNotifier, HeartrateNotifier, Runnable {
@@ -79,7 +77,7 @@ public class Client implements DataNotifier, HeartrateNotifier, Runnable {
 	}
 
 	@Override
-	public void readHeartrate(int heartRate) {
+	public void heartrateEvent(int heartRate) {
 		if( !receivedHeartrate) { // do not send heartrate to hrm
 			out.println(String.format("P:%03d", heartRate));
 			out.flush();

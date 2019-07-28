@@ -85,19 +85,19 @@ public class WaterRowerServiceImpl implements WaterRowerService {
 		unregisterNotifier( serviceNotifier);
 	}
 	
+	@Override
 	public void registerHeartrateNotifier( HeartrateNotifier heartrateNotifier) {
 		heartrateNotifiers.add(heartrateNotifier);
 	}
 
 	public void unregisterHeartrateNotifier( HeartrateNotifier heartrateNotifier) {
-		heartrateNotifiers.add(heartrateNotifier);
+		heartrateNotifiers.remove(heartrateNotifier);
 	}
 	
-	@Override
-	public void setHeartrate(String substring) {
-		
-		
+	public void setHeartrate(String heartrateString) {
+		for( HeartrateNotifier hn:heartrateNotifiers) {
+			hn.heartrateEvent( Integer.parseInt( heartrateString));
+		}
 	}
-
 
 }
