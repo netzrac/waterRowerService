@@ -5,5 +5,7 @@ public interface WaterRowerService {
 	void unregisterNotifier( DataNotifier dn);
 	void reset() throws DataConnectorException;
 	void setHeartrate(String substring);
-	String getHeartrate();
+	public void registerHeartrateNotifier( HeartrateNotifier heartrateNotifier); 
+	public void unregisterHeartrateNotifier( HeartrateNotifier heartrateNotifier); 
+//	String getHeartrate();
 }

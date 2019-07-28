@@ -77,15 +77,5 @@ public class WaterRowerServiceSimulator implements WaterRowerService {
 		unregisterNotifier( serviceNotifier);
 	}
 	
-	@Override
-	public synchronized void setHeartrate(String heartrate) {
-		this.heartrate=heartrate;
-		
-	}
-
-	@Override
-	public synchronized String getHeartrate() {
-		return heartrate;
-	}
 
 }
