@@ -35,7 +35,7 @@ public class Client implements DataNotifier, HeartrateNotifier, Runnable {
 	        } else if( "H".equals(cmd)) {
 		        System.out.println("HELO received.");
 	        } else if( 'P'==cmd.charAt(0)) {
-		        //System.out.println("Heartrate: "+cmd.substring(2));
+		        System.out.println("Heartrate: "+cmd.substring(2));
 	        	if( receivedHeartrate=false) {
 	        		wrs.unregisterHeartrateNotifier(this);
 		        	receivedHeartrate=true;
