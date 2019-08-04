@@ -1,4 +1,6 @@
-Water Rower: apollopro
+From: https://github.com/dmamalis/apollopro
+
+Water Rower: Apollo Pro
 
 An unofficial and untested simple nodejs service to read out Apollo Pro Indoor Rower. 
 Use at your own risk!
@@ -76,8 +78,13 @@ To do
 The plan is to wrap this up to an electron app for storing and viewing data localy. 
 If you feel like contributing please check https://github.com/dmamalis/apollopro_desktop
 
+-----
 
-"W\n"+"X\n": Gerät meldet sich ab.
+From: netzrac
+
+Sample Session 
+
+"W\n"+"X\n": Device unregisters.
 
 20190707 Logs:
 
